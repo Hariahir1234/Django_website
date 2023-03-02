@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>school</title>
+  {%load static%}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"> </script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<style>  
+.flex-container{display:flex ; background-color:black; justify-content:space-around;}
+.item{margin:10px;text-decoration:none;color:white;transition:width 1s,transform 1s; }
+.item:hover{background:green;color:white;
+  transform:scale(1.2);
+}
+a{color:green;}
+
+
+a,h1,h2{text-align:center;}
+.header{margin-top:20px;}
+body{background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: fixed;}
+
+h1,h2{color:white;}  
+
+body{background-image:url("{%static '/background1.jpg' %}");width:100%; }
+</style>
+
+</head>
+<body >
+
+<div class="container" >
+<div class="header">
+    <h1 > School Management </h1>
+   <h2> welcone to the School </h2>
+
+</div>
+
+<div class="flex-container">
+
+<a class="item" href="{% url 'index' %}">Main Page </a> 
+<a class="item" href="{% url 'admin:index' %}"> Admin </a> <br>
+<a class="item" href="{% url 'uploadstudents' %}"> Upload Students </a></br>
+<a class="item" href="{% url 'uploadteachers'%}"> Upload Teachers</a><br>
+<a class="item" href="{% url 'uploadclasss' %}"> Upload Class </a> <br>
+<a class="item" href="{% url 'uploadattendances' %}"> Upload Attendance </a> 
+
+
+</div>
+{%block content%}
+<div class="table1"> 
+<table class="table table-hover" border=1 style="background-color:white">
+<th>Student- Name </th> <th>Age </th> <th>Enrollment date </th> <th> Address </th> <th> Actions </th>
+
+{%for i in studentdetail %}
+<tr>
+   
+<td>{{i.student_name}}</td>
+<td>{{i.age}}</td>
+<td>{{i.enrollment_date}}</td>
+<td>{{i.address}}</td>
+
+<td><a href="updatestud/{{i.id}}"  id='{{i.id}}' ><i class='fa fa-edit'></i></a>  </td>
+
+<td><a href="deletestud/{{i.id}}" id='{{i.id}}'><i class="fa fa-trash" ></i></a> </td>
+</tr>
+<br>
+{%endfor%}
+
+</table>
+</div>
+
+
+<div class="table1">
+<table class="table table-hover" class="table1" border=1 style="background-color:white" >
+  <th>Teachers- Name </th> <th>Subject </th> <th>E-mail </th> <th> Actions </th>
+<tr>{%for i in teacherdetail %}
+<td>{{i.teacher_name}} </td>
+<td> {{i.subject}} </td>
+<td> {{i.email}} </td>
+<td> <a href="/updateteach/{{i.id}}"  id='{{i.id}}' ><i class='fa fa-edit'></i></a> </td>  
+<td> <a href="/deleteteach/{{i.id}}" id='{{i.id}}'> <i class="fa fa-trash" ></i></a>  </td>
+</tr>
+<br>
+{%endfor%}
+</div>
+
+
+<div class="table1">
+<table class="table table-hover" class="table1" border=1 style="background-color:white" >
+  <th>Class- Name </th> <th>Teachers </th> <th>Students </th> <th> Actions </th>
+<tr>{%for i in classdetail %}
+<td>{{i.class_name}} </td>
+<td> {{i.teacher}} </td>
+<td> {{i.students}} </td>
+<td> <a href="/updateclass/{{i.id}}"  id='{{i.id}}' ><i class='fa fa-edit'></i></a> </td>  
+<td> <a href="/deleteclass/{{i.id}}" id='{{i.id}}'> <i class="fa fa-trash" ></i></a>  </td>
+</tr>
+<br>
+{%endfor%}
+</div>
+
+<div class="table1">
+<table class="table table-hover" class="table1" border=1 style="background-color:white" >
+  <th>Attendance: Student- Name </th> <th>Class name </th> <th>Date </th> <th> Present </th> <th>Actions </th>
+<tr>{%for i in attendancedetail %}
+<td>{{i.student}} </td>
+<td> {{i.class_name}} </td>
+<td> {{i.date}} </td>
+<td> {{i.present}} </td>
+<td> <a href="/updateattendnace/{{i.id}}"  id='{{i.id}}' ><i class='fa fa-edit'></i></a> </td>  
+<td> <a href="/deleteattendance/{{i.id}}" id='{{i.id}}'> <i class="fa fa-trash" ></i></a>  </td>
+</tr>
+<br>
+{%endfor%}
+</div>
+
+
+
+
+{%endblock%}
+
+</html>
